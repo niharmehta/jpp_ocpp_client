@@ -23,6 +23,14 @@ To install dependencies:
 ```bash
 pip install paho-mqtt websockets ocpp python-daemon
 ```
+For many distributions, Python venv now needs to be used as pip installs a few libraries. 
+
+## Home Assistant
+This has only been tested with the OCPP HA Addon/Integration.  If you want to test the same way,  you install the OCPP Addon, and within the integration when you add a new instance set the Chargepoint ID to "juicepassproxy" . 
+Unselect " Automatic detection of OCPP Measurands"   
+Max Charging Current to your value   
+Select "Skip OCPP schema validation"   
+
 
 ## Usage
 The application can be executed from the command line with the following options:
