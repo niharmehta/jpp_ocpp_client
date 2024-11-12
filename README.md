@@ -49,11 +49,11 @@ The application can be executed from the command line with the following options
 ## Example Usage
 
 ```
-python ocpp_client.py --debug
+python jpp_ocpp_client.py --debug
 ```
 Run the application as a daemon:
 ```
-python ocpp_client.py --daemon
+python jpp_ocpp_client.py --daemon
 ```
 
 ## Configuration
