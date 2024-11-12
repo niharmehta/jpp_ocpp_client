@@ -31,6 +31,18 @@ Unselect " Automatic detection of OCPP Measurands"
 Max Charging Current to your value   
 Select "Skip OCPP schema validation"   
 
+On the next screen select the follwing options:
+* Current.Import: Instantaneous current flow to EV
+* Current.Offered: Maximum current offered to EV
+* Energy.Active.Import.Register: Active energy imported from the grid
+* Energy.Active.Import.Interval: Active energy imported from the grid during last interval
+* Frequency: Powerline frequency
+* Power.Active.Import: Instantaneous active power imported by EV
+* Power.Factor: Instantaneous power factor of total energy flow
+* Temperature: Temperature reading inside Charge Point
+* Voltage: Instantaneous AC RMS supply voltage
+
+
 
 ## Usage
 The application can be executed from the command line with the following options:
