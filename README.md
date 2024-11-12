@@ -1,4 +1,4 @@
-# EVSE OCPP Client with MQTT Integration
+# JuicepassProxy MQTT to OCPP Client
 
 This project is an Proof of Concept  client that connects to an Open Charge Point Protocol (OCPP) server and integrates with an MQTT broker to monitor  charging parameters. This application listens to various MQTT topics for EV charging information (e.g., voltage, frequency, power, status) and sends these values to an OCPP server, as well as receiving configuration and status requests from the server. This application has ONLY BEEN TESTED WITH THE OCPP Home Assistant addon.  It only monitors values and does not support control at this time. 
 
