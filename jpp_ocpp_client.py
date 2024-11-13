@@ -111,6 +111,47 @@ class EVSEClient(OcppChargePoint):
             except Exception as e:
                 print(f"[ERROR] Failed to send MeterValues: {e}")
 
+    @on('GetConfiguration')
+    async def on_get_configuration(self, **kwargs):
+        """Handle GetConfiguration request from the server."""
+        configuration_key = [
+            {"key": "SupportedFeatureProfiles", "readonly": True, "value": "Core, FirmwareManagement"},
+            {"key": "NumberOfConnectors", "readonly": True, "value": "1"},
+            {"key": "HeartbeatInterval", "readonly": True, "value": "300"},
+            {"key": "WebSocketPingInterval", "readonly": True, "value": "60"},
+            {"key": "MeterValuesSampledData", "readonly": True, "value": "Voltage, Frequency, Temperature, Power.Factor, Current.Import, Power.Active.Import, Current.Offered, Energy.Active.Import.Register"}
+        ]
+        
+        response = call_result.GetConfiguration(configuration_key=configuration_key, unknown_key=[])
+        debug_log("Sending GetConfiguration response.")
+        return response
+
+    @on('ChangeConfiguration')
+    async def on_change_configuration(self, key, value, **kwargs):
+        """Handle ChangeConfiguration requests from the OCPP server."""
+        debug_log(f"Received ChangeConfiguration request: key={key}, value={value}")
+
+        read_only_keys = {"MeterValuesSampledData", "MeterValueSampleInterval", "ClockAlignedDataInterval", "WebSocketPingInterval"}
+
+        if key in read_only_keys:
+            response = call_result.ChangeConfiguration(status=ConfigurationStatus.rejected)
+            debug_log(f"ChangeConfiguration request for '{key}' rejected (read-only).")
+        else:
+            response = call_result.ChangeConfiguration(status=ConfigurationStatus.accepted)
+            debug_log(f"ChangeConfiguration request for '{key}' accepted and set to '{value}'.")
+
+        return response
+
+    @on('ChangeAvailability')
+    async def on_change_availability(self, connector_id, type, **kwargs):
+        """Handle ChangeAvailability request from the server."""
+        debug_log(f"Received ChangeAvailability request: connector_id={connector_id}, type={type}")
+        
+        response = call_result.ChangeAvailability(status=AvailabilityStatus.accepted)
+        debug_log(f"ChangeAvailability request accepted for connector {connector_id} to '{type}'.")
+
+        return response
+
     async def send_status_notification(self, status):
         status_map = {
             "Available": ChargePointStatus.available,
