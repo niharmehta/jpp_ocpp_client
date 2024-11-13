@@ -219,8 +219,8 @@ async def main():
             async with websockets.connect(
                 server_url,
                 subprotocols=['ocpp1.6'],
-                ping_interval=30,
-                ping_timeout=10
+                ping_interval=20,
+                ping_timeout=20
             ) as ws:
                 debug_log("Connected to OCPP server")
                 manager.cp = EVSEClient(args.chargepoint_id, ws)
